@@ -1,13 +1,15 @@
-'use strict'
+'use strict';
 
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
 
-let mainWindow = null;
+var mainWindow = null;
 
 app.on('ready', function () {
     mainWindow = new BrowserWindow({
-        height: 600,
-        width: 800
+        frame: false,
+        resizable: false,
+        width: 368,
+        height: 700
     });
 
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
