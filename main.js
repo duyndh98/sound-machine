@@ -1,6 +1,7 @@
 'use strict';
 
-const { app, BrowserWindow } = require('electron');
+var app = require('app');
+var BrowserWindow = require('browser-window');
 
 var mainWindow = null;
 
@@ -9,8 +10,14 @@ app.on('ready', function () {
         frame: false,
         resizable: false,
         width: 368,
-        height: 700
+        height: 700,
     });
 
-    mainWindow.loadURL('file://' + __dirname + '/app/index.html');
+    mainWindow.loadUrl('file://' + __dirname + '/app/index.html');
+});
+
+var ipc = require('ipc');
+
+ipc.on('close-main-window', function () {
+    app.quit();
 });
