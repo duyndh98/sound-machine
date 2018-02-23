@@ -33,3 +33,30 @@ var ipc = require('ipc');
 ipc.on('close-main-window', function () {
     app.quit();
 });
+
+var settingsWindow = null;
+
+ipc.on('open-settings-window', function () {
+    if (settingsWindow) {
+        return;
+    }
+
+    settingsWindow = new BrowserWindow({
+        frame: false,
+        resizable: false,
+        width: 200,
+        height: 200
+    });
+
+    settingsWindow.loadUrl('file://' + __dirname + '/app/settings.html');
+
+    settingsWindow.on('closed', function () {
+        settingsWindow = null;
+    });
+});
+
+ipc.on('close-settings-window', function () {
+    if (settingsWindow) {
+        settingsWindow.close();
+    }
+});
